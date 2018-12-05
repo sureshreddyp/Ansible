@@ -1,0 +1,28 @@
+[tomcat-servers:children]
+app1
+app2
+app3
+
+[app1]
+13.52.75.104
+[app1:vars]
+http_port=8090
+admin_username = ram
+admin_password = ram123
+
+[app2]
+54.215.242.119
+[app2:vars]
+http_port=8010
+admin_username = admin
+admin_password = admin123
+
+[app3]
+52.53.210.22
+
+[app3:vars]
+http_port=8030
+https_port=8443
+admin_username = ram
+admin_password = ram123
+
