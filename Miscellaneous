@@ -1,0 +1,36 @@
+finding a process and deleting process
+
+---
+
+- name: testing
+  hosts: all
+  become: true
+  tasks:
+     - name: Get running processes
+       shell: "pgrep apache2 | sed 2,10d"
+       register: running_processes
+
+     - name: Kill running processes
+       shell: "kill {{ item }}"
+       with_items: "{{ running_processes.stdout_lines }}"
+
+
+Displaying the running process with Items
+
+- name: testing
+  hosts: all
+
+  tasks:
+          - name: this command prints FAILED when it fails
+            command: pgrep apache2
+            register: command_result
+            ignore_errors: True
+
+          - name: fail the play if the previous command did not succeed
+            fail:
+                msg: "the command failed"
+            when: "'FAILED' in command_result.stderr"
+          - name: display the process name
+            debug:
+              msg: "the process is running {{ item }}"
+            with_items: "{{ command_result.stdout_lines }}"
